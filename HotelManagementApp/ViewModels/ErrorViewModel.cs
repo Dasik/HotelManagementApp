@@ -1,6 +1,4 @@
-using System;
-
-namespace HotelManagementApp.Models
+namespace HotelManagementApp.ViewModels
 {
 	public class ErrorViewModel
 	{

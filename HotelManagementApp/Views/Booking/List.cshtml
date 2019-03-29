@@ -1,0 +1,112 @@
+﻿@using HotelManagementApp.Utils
+@using HotelManagementApp.ViewModels.Booking
+@using HotelManagementApp.ViewModels.Enums
+
+@model HotelManagementApp.ViewModels.Booking.BookingListViewModelModel
+@{
+    ViewData["Title"] = "Бронирования";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <form method="get">
+        <div class="form-inline form-group">
+            <div class="form-inline form-group">
+                <label asp-for="Capacity" class="control-label"></label><br />
+                <select asp-for="CapacityOrder" asp-items="Html.GetEnumSelectList<CompareOrder>()" class="form-control"></select>
+                <input asp-for="Capacity" class="form-control" />
+            </div>
+            <div class="form-inline form-group">
+                <label asp-for="Types" class="control-label"></label><br />
+                <select asp-for="TypeId" asp-items="Model.Types"></select>
+            </div>
+            <div class="form-inline form-group">
+                <label asp-for="Price" class="control-label"></label><br />
+                <select asp-for="PriceOrder" asp-items="Html.GetEnumSelectList<CompareOrder>()" class="form-control"></select>
+                <input asp-for="Price" class="form-control" />
+            </div>
+            <div class="form-inline form-group">
+                <label asp-for="StartDate" class="control-label"></label><br />
+                <input asp-for="StartDate" class="form-control" />
+
+            </div>
+            <div class="form-inline form-group">
+                <label asp-for="EndDate" class="control-label"></label><br />
+                <input asp-for="EndDate" class="form-control" />
+            </div>
+            @Html.HiddenFor(model => model.SortKey)
+            @Html.HiddenFor(model => model.SortState)
+            <input type="submit" value="Фильтр" class="btn btn-default" />
+        </div>
+    </form>
+</div>
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <sort-header action="List" model="@Model" sort-order="@Model.SortState" current-key="Hotel" active-key="@Model.SortKey">
+                        Отель
+                    </sort-header>
+                </th>
+                <th scope="col">
+                    Фото
+                </th>
+                <th scope="col">
+                    <sort-header action="List" model="@Model" sort-order="@Model.SortState" current-key="Description" active-key="@Model.SortKey">
+                        Описание
+                    </sort-header>
+                </th>
+                <th scope="col">
+                    <sort-header action="List" model="@Model" sort-order="@Model.SortState" current-key="Capacity" active-key="@Model.SortKey">
+                        Вместимость
+                    </sort-header>
+                </th>
+                <th scope="col">
+                    <sort-header action="List" model="@Model" sort-order="@Model.SortState" current-key="Type" active-key="@Model.SortKey">
+                        Тип
+                    </sort-header>
+                </th>
+                <th scope="col">
+                    <sort-header action="List" model="@Model" sort-order="@Model.SortState" current-key="Price" active-key="@Model.SortKey">
+                        Стоимость(сутки)
+                    </sort-header>
+                </th>
+                <th scope="col">
+                    <sort-header action="List" model="@Model" sort-order="@Model.SortState" current-key="EndDate" active-key="@Model.SortKey">
+                        Начало
+                    </sort-header>
+                </th>
+                <th scope="col">
+                    <sort-header action="List" model="@Model" sort-order="@Model.SortState" current-key="EndDate" active-key="@Model.SortKey">
+                        Конец
+                    </sort-header>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model.Booking)
+            {
+                <tr>
+                    <th scope="row">@book.Apart.Hotel.Name</th>
+                    <td><img src=@book.Apart.Image class="img-rounded" alt="@book.Apart.Hotel.Name" width="100"></td>
+                    <td>@book.Apart.Description</td>
+                    <td>@book.Apart.Capacity</td>
+                    <td>@book.Apart.Type</td>
+                    <td>@book.Apart.Price</td>
+                    <td>@book.StartDate</td>
+                    @if (book.EndDate == null)
+                    {
+                        <td>@book.ExpectedEndDate</td>
+                    }
+                    else
+                    {
+                        <td>@book.EndDate</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

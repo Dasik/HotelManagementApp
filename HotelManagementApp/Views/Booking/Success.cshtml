@@ -1,0 +1,59 @@
+﻿@model HotelManagementApp.ViewModels.Booking.BookingViewModel
+@{
+    ViewData["Title"] = "Забронировано";
+}
+
+<h2>Забронировано успешно</h2>
+
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Отель
+                </th>
+                <th scope="col">
+                    Фото
+                </th>
+                <th scope="col">
+                    Описание
+                </th>
+                <th scope="col">
+                    Вместимость
+                </th>
+                <th scope="col">
+                    Тип
+                </th>
+                <th scope="col">
+                    Стоимость(сутки)
+                </th>
+                <th scope="col">
+                    Начало
+                </th>
+                <th scope="col">
+                    Конец
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">@Model.Apart.Hotel.Name</th>
+                <td><img src=@Model.Apart.Image class="img-rounded" alt="@Model.Apart.Hotel.Name" width="100"></td>
+                <td>@Model.Apart.Description</td>
+                <td>@Model.Apart.Capacity</td>
+                <td>@Model.Apart.Type</td>
+                <td>@Model.Apart.Price</td>
+                <td>@Model.StartDate</td>
+                @if (Model.EndDate == null)
+                {
+                    <td>@Model.ExpectedEndDate</td>
+                }
+                else
+                {
+                    <td>@Model.EndDate</td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+

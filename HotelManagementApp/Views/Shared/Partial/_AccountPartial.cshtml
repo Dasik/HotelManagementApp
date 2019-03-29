@@ -1,0 +1,30 @@
+﻿
+<div class="navbar-collapse collapse navbar-right">
+    <ul class="nav navbar-nav">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li>
+                <a asp-controller="Booking" asp-action="List" class="btn btn-info">Мои бронирования</a>
+            </li>
+            <li>
+                <button id="username" name="username" class="btn btn-primary" disabled>
+                    <p>@User.Identity.Name</p>
+                </button>
+            </li>
+            <li>
+                <form method="post" asp-controller="Account" asp-action="LogOff">
+                    <input type="submit" value="Выход" class="btn" />
+                </form>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a asp-controller="Account" asp-action="Login">Вход</a>
+            </li>
+            <li>
+                <a asp-controller="Account" asp-action="Register">Регистрация</a>
+            </li>
+        }
+    </ul>
+</div>
